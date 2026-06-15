@@ -1,6 +1,3 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import Modal from "@/components/Modal/Modal";
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsPageClient from "@/app/notes/[id]/NoteDetails.client";
@@ -16,7 +13,6 @@ interface Props {
 }
 
 export default async function NoteModalPage({ params }: Props) {
-  const router = useRouter();
   const { id } = await params;
 
   const queryClient = new QueryClient();
@@ -27,7 +23,7 @@ export default async function NoteModalPage({ params }: Props) {
   });
 
   return (
-    <Modal onClose={() => router.back()}>
+    <Modal>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <NoteDetailsPageClient />
       </HydrationBoundary>
